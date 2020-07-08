@@ -14,6 +14,11 @@ export interface PaginationLinks{
     next: string|null;    
 }
 
+export interface PaginationMetaInfo{
+    current_page: number,
+    last_page: number
+}
+
 
 // {
 //     "data": [

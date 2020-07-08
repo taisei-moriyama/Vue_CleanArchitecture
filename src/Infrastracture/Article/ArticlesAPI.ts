@@ -12,17 +12,40 @@ export class ArticlesAPI{
             //ページネーション実装（次のページ情報page_urlがあれば、そのページ情報のURLへとリクエストをだす）
             const url = pageURL || 'http://127.0.0.1:8000/api/articles';
             const res = await axios.get(url);
-            //console.log(url)
-            //console.log(res.data);
-            //Articlesオブジェクトの配列articles
-            // const articles: Promise<Article[]> = res.data.data
             const articles = new Articles(res.data)
-            //console.log(articles)
             return articles;
-            // return res.data.data
         }catch(error){
             console.log(error)
             return null;
+        }
+    }
+
+    async deleteArticles(id: number){
+        try{
+            const url = 'http://127.0.0.1:8000/api/article/'+id
+            // console.log(url) 
+            await axios.delete(url)
+            return true;
+        }catch(error){
+            console.log(error)
+            return false;           
+        }
+    }
+
+    async addarticle(article: string){
+        try{
+            const config = {
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }
+    
+            // カスタムヘッダーを付与して、POST
+            await axios.post('http://127.0.0.1:8000/api/article', article, config) 
+            return true;        
+        }catch(error){
+            console.log(error)
+            return false;
         }
     }
 }

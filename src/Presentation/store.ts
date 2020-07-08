@@ -1,6 +1,6 @@
 import Vue from 'vue'
 //import {Article} from '../Domain/Models/Ariticle'
-import {Articles,PaginationLinks} from '../Domain/UseCases/Articles/ArticlesOutputData'
+import {Articles,PaginationLinks, PaginationMetaInfo} from '../Domain/UseCases/Articles/ArticlesOutputData'
 //import {Pagination} from '../Domain/UseCases/Articles/ArticlesOutputData' 
 
 //状態管理クラス
@@ -24,8 +24,9 @@ class Store{
         }   
     }
 
-    public setPagination(paginationLinks: PaginationLinks){
-        Object.assign(this._pagination, paginationLinks)
+    public setPagination(paginationLinks: PaginationLinks, paginationMetaInfo: PaginationMetaInfo){
+        Object.assign(this._pagination, paginationLinks, paginationMetaInfo)
+        // console.log(this._pagination)
     }
 
 }

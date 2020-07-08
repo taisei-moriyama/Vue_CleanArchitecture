@@ -15,6 +15,10 @@ interface ArticlesInfo{
         prev: string|null;
         next: string|null;
     };
+    meta: {
+        current_page: number;
+        last_page: number;
+    };
 }
 
 export class Articles{
@@ -26,6 +30,10 @@ export class Articles{
 
     get paginationLinks(){
         return this._articlesInfo.links
+    }
+
+    get paginationMetaInfo(){
+        return this._articlesInfo.meta
     }
 }
 

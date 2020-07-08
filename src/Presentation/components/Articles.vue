@@ -1,13 +1,27 @@
 <template>
     <div>
         <h2>Articles</h2>
+        <!-- https://getbootstrap.com/docs/4.5/components/forms/ -->
+
+        <!--@submit.prevent="addArticle" によってデフォルトの送信を止め、独自のメソッドで送信する  -->
+        <form @submit.prevent="addArticle" class="mb-3"> 
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Title" v-model="article.title">
+          </div>
+          <div class="form-group">
+            <textarea type="text" class="form-control" placeholder="Body" v-model="article.body"></textarea>
+          </div>
+          <button type="submit" class="btn btn-light btn-block">Save</button>
+        </form>
+
         <!-- https://getbootstrap.com/docs/4.5/components/pagination/ -->
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li v-bind:class="{disabled: !pagination.prev}" class="page-item">
               <a class="page-link" href="#" @click="fetchArticles(pagination.prev)">Previous</a>
             </li>
-            <!-- {{this.pagination}} -->
+            <li class="page-item disabled"><a class="page-link" href="#">Page{{pagination.current_page}} of {{pagination.last_page}}</a></li>
+            <!-- <li class="page-item">2</li> -->
             <li v-bind:class="{disabled: !pagination.next}" class="page-item">
               <a class="page-link" href="#" @click="fetchArticles(pagination.next)">Next</a>
             </li>
@@ -18,6 +32,9 @@
             <h3>{{article.title}}</h3>
             <!-- <h3>{{articles}}</h3> -->
             <p>{{article.body}}</p>
+            <hr>
+            <!-- https://getbootstrap.com/docs/4.5/components/buttons/ -->
+            <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>
         </div>
     </div>
 </template>
@@ -34,22 +51,29 @@ export default class App extends Vue {
   //状態
   private articles = store.articles;
   private pagination = store.pagination;
+  private article ={
+    title: '',
+    body: ''
+  }
 
-  //private _articleUseCases =  new ArticleUseCase();
+
 
   //Vueインスタンスが作成完了直後に実行されるライフサイクルフックcreated()
   created(){
-    // new ArticleUseCase().getArticles();
-    //console.log(this._articleUseCases)
-    //this._articleUseCases.getArticles();
     this.fetchArticles();
-    // console.log(this.pagination)
   }
 
   fetchArticles(pageURL?: string){
     new ArticleUseCase().fecthArticlesFromAPI(pageURL);
-    console.log(pageURL)
-    // this._articleUseCases.getArticles(pageURL);
   }
+
+  deleteArticle(id: number){
+    new ArticleUseCase().deleteArticle(id)
+  }
+
+  addArticle(){
+    new ArticleUseCase().addArticle(this.article)
+  }
+
 }
 </script>
