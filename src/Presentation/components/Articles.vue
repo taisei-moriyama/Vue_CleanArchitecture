@@ -47,7 +47,7 @@ export default class App extends Vue {
   }
 
   fetchArticles(pageURL?: string){
-    new ArticleUseCase().getArticles(pageURL);
+    new ArticleUseCase().fecthArticlesFromAPI(pageURL);
     console.log(pageURL)
     // this._articleUseCases.getArticles(pageURL);
   }

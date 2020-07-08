@@ -1,19 +1,13 @@
 import Vue from 'vue'
-import {Article} from '../Domain/Models/Ariticle'
-import {ArticlesOutputData} from '../Domain/UseCases/Articles/ArticlesOutputData'
+//import {Article} from '../Domain/Models/Ariticle'
+import {Articles,PaginationLinks} from '../Domain/UseCases/Articles/ArticlesOutputData'
 //import {Pagination} from '../Domain/UseCases/Articles/ArticlesOutputData' 
 
 //状態管理クラス
 class Store{
     //クラスプロパティ_articlesはArticles（オブジェクト）型の配列
-    private _articles: Article[] =[];
+    private _articles: Articles =[];
     private _pagination = {};
-    // private _pagination :Pagination = {links:{
-    //     first:'',
-    //     last: '',
-    //     prev: '',
-    //     next: '',
-    // }};
 
     public get articles(){
         return this._articles;
@@ -22,18 +16,16 @@ class Store{
     public get pagination(){
         return this._pagination
     }
-    
-    public setArticlesInfo(articlesInfo: ArticlesOutputData){
-        // this._articles.push(...articlesInfo.articles);
-        const articles = articlesInfo.articles 
-        //
+
+
+    public setArticles(articles: Articles){
         for(let i=0; i<articles.length; i++){
             this._articles.splice(i, 1 ,articles[i])
         }   
+    }
 
-        //オブジェクトをリアクティブに変更する
-        Object.assign(this._pagination, articlesInfo.links)
-        //console.log(this._pagination)
+    public setPagination(paginationLinks: PaginationLinks){
+        Object.assign(this._pagination, paginationLinks)
     }
 
 }

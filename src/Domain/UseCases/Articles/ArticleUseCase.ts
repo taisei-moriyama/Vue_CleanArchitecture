@@ -1,8 +1,8 @@
 //import axios from 'axios';
 
 //import store from '../../../Presentation/store';
-//import {Article} from '../../Models/Ariticles'
-import {ArticlesOutputData} from './ArticlesOutputData'
+import {Articles} from '../../Models/Ariticles'
+import {Articles as ArticlesDS, PaginationLinks} from './ArticlesOutputData'
 import {ArticlesAPI} from '../../../Infrastracture/Article/ArticlesAPI'
 import {ArticlePresenter} from '../../../IOAdapters/Articles/Presenter'
 
@@ -16,24 +16,16 @@ export class ArticleUseCase{
         this._articlesPresenter = new ArticlePresenter();
     }
 
-    async getArticles(pageURL?: string){ 
-        //データの初期化
-        // let articlesOutputData: ArticlesOutputData
-        //  = {data:[],
-        //     links:{
-        //         first:'',
-        //         last: '',
-        //         prev: '',
-        //         next: '',
-        //     }};
+    async fecthArticlesFromAPI(pageURL?: string){ 
         //本当はインターフェースを呼び出すべき。
-        const result: ArticlesOutputData|null = await this._articlesAPI.fetchArticles(pageURL);
+        const result: Articles|null = await this._articlesAPI.fetchArticles(pageURL);
 
         if (result != null){
             // //※Clean Architectureに則るなら、Presenterの役割
-            const articlesOutputData = result
+            const articles: ArticlesDS = result.articles
+            const paginationLinks: PaginationLinks = result.paginationLinks
             //※Clean Architectureに則るなら、IPresenterを呼び出すべき
-            this._articlesPresenter.presentArticlesData(articlesOutputData)
+            this._articlesPresenter.presentArticlesData(articles, paginationLinks)
 
         }else{
             //error handlingの記述

@@ -1,11 +1,11 @@
 //import {Article} from '../../Domain/Models/Ariticles'
-import {ArticlesOutputData} from '../../Domain/UseCases/Articles/ArticlesOutputData'
+import {Articles, PaginationLinks} from '../../Domain/UseCases/Articles/ArticlesOutputData'
 import store from '../../Presentation/store'
 
 export class ArticlePresenter{
-    presentArticlesData(articlesOutputData: ArticlesOutputData){
-        store.setArticlesInfo(articlesOutputData)
+    presentArticlesData(articles: Articles, paginationLinks: PaginationLinks){
+        store.setArticles(articles)
         //console.log(articlesOutputData.links);
-        
+        store.setPagination(paginationLinks)   
     }
 }
