@@ -9,25 +9,27 @@ export class ArticlesAPI{
     // 
     async fetchArticles(pageURL?: string): Promise<Articles | null>{  
         try{
+            // 'http://127.0.0.1:8000/api/articles'
             //ページネーション実装（次のページ情報page_urlがあれば、そのページ情報のURLへとリクエストをだす）
-            const url = pageURL || 'http://127.0.0.1:8000/api/articles';
+            const url = pageURL || 'api/articles';
+            // const url = 'api/articles';
             const res = await axios.get(url);
             const articles = new Articles(res.data)
             return articles;
         }catch(error){
-            console.log(error)
+            // console.log(error)
             return null;
         }
     }
 
     async deleteArticles(id: number){
         try{
-            const url = 'http://127.0.0.1:8000/api/article/'+id
+            const url = 'api/article/'+id
             // console.log(url) 
             await axios.delete(url)
             return true;
         }catch(error){
-            console.log(error)
+            // console.log(error)
             return false;           
         }
     }
@@ -41,10 +43,10 @@ export class ArticlesAPI{
             }
     
             // カスタムヘッダーを付与して、POST
-            await axios.post('http://127.0.0.1:8000/api/article', article, config) 
+            await axios.post('api/article', article, config) 
             return true;        
         }catch(error){
-            console.log(error)
+            //console.log(error)
             return false;
         }
     }
