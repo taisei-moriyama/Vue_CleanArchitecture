@@ -7,12 +7,15 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,//InversifyJSに必要(reflect-metadata要インストール)
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "strictPropertyInitialization": false, //クラスのプロパティ初期化必須解除
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "reflect-metadata", //InversifyJSに必要
     ],
     "paths": {
       "@/*": [
@@ -20,6 +23,7 @@
       ]
     },
     "lib": [
+      "es6",//InversifyJSに必要
       "esnext",
       "dom",
       "dom.iterable",
@@ -35,5 +39,12 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "rules": {
+    "interface-name": [
+        true,
+        "always-prefix"
+    ]
+}
+  
 }

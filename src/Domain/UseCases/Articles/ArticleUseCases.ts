@@ -1,24 +1,37 @@
-//import axios from 'axios';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
 
-//import store from '../../../Presentation/store';
+// import {container} from '../../../DIContainer/DIContainer'
+import {IArticlesAPI} from '../../Models/IArticlesAPI'
+import {IArticlesPresenter} from './IArticlesPresenter'
+import {IArticleUseCases} from './IArticleUseCases'
+import {TYPES} from '../../../DIContainer/types'
+
 import {Articles} from '../../Models/Ariticles'
 import {Articles as ArticlesDS, PaginationLinks, PaginationMetaInfo} from './ArticlesOutputData'
 import {ArticleInputData} from './ArticleInputData'
-import {ArticlesAPI} from '../../../Infrastracture/Article/ArticlesAPI'
-import {ArticlePresenter} from '../../../IOAdapters/Articles/Presenter'
+// import {ArticlesAPI} from '../../../Infrastracture/Article/ArticlesAPI'
+// import {ArticlesPresenter} from '../../../IOAdapters/Articles/ArticlesPresenter'
 
-export class ArticleUseCase{
+@injectable()
+export class ArticleUseCases implements IArticleUseCases{
 
     //コンストラクタで、このクラス全体で使用するArticlesAPIクラスをインスタンス化しておく
-    private _articlesAPI: ArticlesAPI;
-    private _articlesPresenter:  ArticlePresenter
-    constructor(){
-        this._articlesAPI = new ArticlesAPI();
-        this._articlesPresenter = new ArticlePresenter();
-    }
+    @inject(TYPES.ArticlesAPI) _articlesAPI: IArticlesAPI;
+    @inject(TYPES.ArticlesPresenter) _articlesPresenter:  IArticlesPresenter
+    // constructor(
+    //     @inject(TYPES.ArticlesAPI) articlesAPI: IArticlesAPI,
+    //     @inject(TYPES.ArticlesPresenter) articlesPresenter:  ArticlesPresenter
+    // ){
 
-    async fecthArticlesFromAPI(pageURL?: string){ 
+    //     this._articlesAPI = articlesAPI;
+    //     this._articlesPresenter = articlesPresenter;
+    //     // this._articlesPresenter = new ArticlesPresenter();
+    // }
+
+    async fecthArticlesFromAPI(pageURL?: string): Promise<void>{ 
         //本当はインターフェースを呼び出すべき。
+        console.log(this._articlesAPI);
         const result: Articles|null = await this._articlesAPI.fetchArticles(pageURL);
 
         if (result != null){
@@ -34,7 +47,7 @@ export class ArticleUseCase{
         }
     }
 
-    async deleteArticle(id: number){
+    async deleteArticle(id: number): Promise<void>{
         // window.confirm():引数に渡した文言をダイアログボックスとして表示しｍokを押されたらtrueを返す 
         if(confirm("Are you sure")){
             // console.log(id);
@@ -45,7 +58,7 @@ export class ArticleUseCase{
         }
     }
 
-    async addArticle(article: ArticleInputData){
+    async addArticle(article: ArticleInputData): Promise<void>{
         console.log(article)
         //オブジェクト型のarticleをjson(string型)に変換する。
         const articleJson = JSON.stringify(article)

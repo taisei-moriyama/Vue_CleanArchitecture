@@ -6,10 +6,6 @@ module.exports = {
  
     // app配下にjs, cssなどが置かれるので、publicPathを調整する
     publicPath: '/app',
-
-    // module: {
-
-    // }
  
     // app1
     pages: {
@@ -24,24 +20,5 @@ module.exports = {
         },
     },
 
-    // configureWebpack: {
-    //     module: {
-    //       rules: [
-    //         {
-    //           test: /\.ts$/,
-    //         //   loader: 'bable-loader',
-    //           use: 'ts-loader'
-    //         //   exclude: /node_modules/,
-    //         },
-    //       ]
-    //     },
-    // },
-
-
-    // resolve: {
-    //     extentions: [
-    //         '.ts', '.js'
-    //     ]
-    // }
 
 };

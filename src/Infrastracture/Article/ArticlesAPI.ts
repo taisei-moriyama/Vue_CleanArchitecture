@@ -1,10 +1,12 @@
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import {IArticlesAPI} from '../../Domain/Models/IArticlesAPI'
+
 import axios from 'axios';
-
 import {Articles} from '../../Domain/Models/Ariticles'
-// import {ArticlesOutputData} from '../../Domain/UseCases/Articles/ArticlesOutputData'
 
-
-export class ArticlesAPI{
+@injectable()
+export class ArticlesAPI implements IArticlesAPI{
     //async functionの戻り値の型定義の仕方：Promise<約束が成功したときの型|失敗したときの型>
     // 
     async fetchArticles(pageURL?: string): Promise<Articles | null>{  
@@ -22,7 +24,7 @@ export class ArticlesAPI{
         }
     }
 
-    async deleteArticles(id: number){
+    async deleteArticles(id: number): Promise<boolean>{
         try{
             const url = 'api/article/'+id
             // console.log(url) 
@@ -34,7 +36,7 @@ export class ArticlesAPI{
         }
     }
 
-    async addarticle(article: string){
+    async addarticle(article: string): Promise<boolean>{
         try{
             const config = {
                 headers: {

@@ -43,7 +43,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 //store読み込み
 import store from '../store';
-import {ArticleUseCase} from '../../Domain/UseCases/Articles/ArticleUseCase'
+// import {ArticleUseCase} from '../../Domain/UseCases/Articles/ArticleUseCase'
+import {container} from '@/DIContainer/DIContainer'
+import { IArticleUseCases } from '../../Domain/UseCases/Articles/IArticleUseCases';
+import {TYPES} from '@/DIContainer/types'
  
 @Component
 export default class App extends Vue {
@@ -56,23 +59,28 @@ export default class App extends Vue {
     body: ''
   }
 
+  private usecases: IArticleUseCases = container.get<IArticleUseCases>(TYPES.ArticlesUsecases)
 
 
   //Vueインスタンスが作成完了直後に実行されるライフサイクルフックcreated()
   created(){
     this.fetchArticles();
+    
   }
 
   fetchArticles(pageURL?: string){
-    new ArticleUseCase().fecthArticlesFromAPI(pageURL);
+    //const usecases = container.get<IArticleUseCases>(TYPES.ArticlesUsecases)
+    this.usecases.fecthArticlesFromAPI(pageURL);
+    // new ArticleUseCase().fecthArticlesFromAPI(pageURL);
   }
 
   deleteArticle(id: number){
-    new ArticleUseCase().deleteArticle(id)
+    this.usecases.deleteArticle(id)
   }
 
   addArticle(){
-    new ArticleUseCase().addArticle(this.article)
+    // const usecases = container.get<IArticleUseCases>(TYPES.ArticlesUsecases)
+    this.usecases.addArticle(this.article)
   }
 
 }
