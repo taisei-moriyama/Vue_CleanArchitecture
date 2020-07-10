@@ -1,5 +1,10 @@
 <template>
     <div>
+       <Loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :on-cancel="onCancel"
+        :is-full-page="fullPage"></Loading>
+
         <h2>Articles</h2>
         <!-- https://getbootstrap.com/docs/4.5/components/forms/ -->
 
@@ -40,6 +45,13 @@
 </template>
 
 <script lang="ts">
+    // require('vue-loading-overlay')
+
+    // declare module 'vue-loading-overlay'
+    // require("Loading")
+    // Import component
+    import * as Loading from 'vue-loading-overlay';
+    import 'vue-loading-overlay/dist/vue-loading.css';
 import { Component, Vue } from 'vue-property-decorator';
 //store読み込み
 import store from '../store';
@@ -48,7 +60,11 @@ import {container} from '@/DIContainer/DIContainer'
 import { IArticleUseCases } from '../../Domain/UseCases/Articles/IArticleUseCases';
 import {TYPES} from '@/DIContainer/types'
  
-@Component
+@Component({
+  components:{
+    Loading,
+  },
+})
 export default class App extends Vue {
   
   //状態
@@ -58,6 +74,7 @@ export default class App extends Vue {
     title: '',
     body: ''
   }
+  private isLoading = true
 
   private usecases: IArticleUseCases = container.get<IArticleUseCases>(TYPES.ArticlesUsecases)
 

@@ -20,7 +20,8 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "vue-loading-overlay": ["vue-loading-overlay.d.ts"]
     },
     "lib": [
       "es6",//InversifyJSに必要
@@ -28,7 +29,8 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "typeRoots": ["node_modules/@types", "src/@types"], 
   },
   "include": [
     "src/**/*.ts",
