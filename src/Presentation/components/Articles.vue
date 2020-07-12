@@ -1,13 +1,14 @@
 <template>
     <div>
-       <Loading :active.sync="isLoading" 
+       <Loading :active.sync="isLoading[0]" 
         :can-cancel="true" 
         :on-cancel="onCancel"
-        :is-full-page="fullPage"></Loading>
+        ></Loading>
+
+       
 
         <h2>Articles</h2>
         <!-- https://getbootstrap.com/docs/4.5/components/forms/ -->
-
         <!--@submit.prevent="addArticle" によってデフォルトの送信を止め、独自のメソッドで送信する  -->
         <form @submit.prevent="addArticle" class="mb-3"> 
           <div class="form-group">
@@ -32,6 +33,8 @@
             </li>
           </ul>
         </nav>
+
+       {{error[0]}}
        <!-- bootstrapのcardでデザインを整えて、表示-->
         <div class="card card-body mb-2" v-for="article in articles" v-bind:key="article.id">
             <h3>{{article.title}}</h3>
@@ -45,11 +48,6 @@
 </template>
 
 <script lang="ts">
-    // require('vue-loading-overlay')
-
-    // declare module 'vue-loading-overlay'
-    // require("Loading")
-    // Import component
 import * as Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { Component, Vue } from 'vue-property-decorator';
@@ -70,25 +68,29 @@ export default class App extends Vue {
   //状態
   private articles = store.articles;
   private pagination = store.pagination;
+  private isLoading = store.isLoading;
+  private error = store.error
   private article ={
     title: '',
     body: ''
-  }
-  private isLoading = true
+  };
+  
 
   private usecases: IArticleUseCases = container.get<IArticleUseCases>(TYPES.ArticlesUsecases)
 
 
+
   //Vueインスタンスが作成完了直後に実行されるライフサイクルフックcreated()
   created(){
+    console.log(this.isLoading[0])
     this.fetchArticles();
-    
+    setTimeout(() => {
+      console.log(this.isLoading[0])
+    }, 2000);
   }
 
   fetchArticles(pageURL?: string){
-    //const usecases = container.get<IArticleUseCases>(TYPES.ArticlesUsecases)
     this.usecases.fecthArticlesFromAPI(pageURL);
-    // new ArticleUseCase().fecthArticlesFromAPI(pageURL);
   }
 
   deleteArticle(id: number){
@@ -100,5 +102,8 @@ export default class App extends Vue {
     this.usecases.addArticle(this.article)
   }
 
+  onCancel() {
+      console.log('User cancelled the loader.')
+  }
 }
 </script>

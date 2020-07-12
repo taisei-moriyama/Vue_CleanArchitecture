@@ -13,4 +13,10 @@ export class ArticlesPresenter implements IArticlesPresenter{
         //console.log(articlesOutputData.links);
         store.setPagination(paginationLinks, paginationMetaInfo)   
     }
+
+    notifiyError(err: string){
+        store.setError(err)
+        console.log(err);
+        // store.setIsLoading()
+    }
 }

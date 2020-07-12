@@ -19,15 +19,7 @@ export class ArticleUseCases implements IArticleUseCases{
     //コンストラクタで、このクラス全体で使用するArticlesAPIクラスをインスタンス化しておく
     @inject(TYPES.ArticlesAPI) _articlesAPI: IArticlesAPI;
     @inject(TYPES.ArticlesPresenter) _articlesPresenter:  IArticlesPresenter
-    // constructor(
-    //     @inject(TYPES.ArticlesAPI) articlesAPI: IArticlesAPI,
-    //     @inject(TYPES.ArticlesPresenter) articlesPresenter:  ArticlesPresenter
-    // ){
 
-    //     this._articlesAPI = articlesAPI;
-    //     this._articlesPresenter = articlesPresenter;
-    //     // this._articlesPresenter = new ArticlesPresenter();
-    // }
 
     async fecthArticlesFromAPI(pageURL?: string): Promise<void>{ 
         //本当はインターフェースを呼び出すべき。
@@ -44,6 +36,7 @@ export class ArticleUseCases implements IArticleUseCases{
 
         }else{
             //error handlingの記述
+            this._articlesPresenter.notifiyError("cannot find arctiles")
         }
     }
 

@@ -2,4 +2,5 @@ import {Articles, PaginationLinks, PaginationMetaInfo} from '../../../Domain/Use
 
 export interface IArticlesPresenter{
     presentArticlesData(articles: Articles, paginationLinks: PaginationLinks, paginationMetaInfo: PaginationMetaInfo): void;
+    notifiyError(err: string): void;
 }
