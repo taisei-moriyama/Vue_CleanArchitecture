@@ -11,7 +11,8 @@ export class ArticlesPresenter implements IArticlesPresenter{
     presentArticlesData(articles: Articles, paginationLinks: PaginationLinks, paginationMetaInfo: PaginationMetaInfo){
         store.setArticles(articles)
         //console.log(articlesOutputData.links);
-        store.setPagination(paginationLinks, paginationMetaInfo)   
+        store.setPagination(paginationLinks, paginationMetaInfo) 
+        store.setIsLoading()  
     }
 
     notifiyError(err: string){

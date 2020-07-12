@@ -82,14 +82,15 @@ export default class App extends Vue {
 
   //Vueインスタンスが作成完了直後に実行されるライフサイクルフックcreated()
   created(){
-    console.log(this.isLoading[0])
+    // console.log(this.isLoading[0])
     this.fetchArticles();
-    setTimeout(() => {
-      console.log(this.isLoading[0])
-    }, 2000);
+    // setTimeout(() => {
+    //   console.log(this.isLoading[0])
+    // }, 2000);
   }
 
   fetchArticles(pageURL?: string){
+    store.setIsLoading()
     this.usecases.fecthArticlesFromAPI(pageURL);
   }
 

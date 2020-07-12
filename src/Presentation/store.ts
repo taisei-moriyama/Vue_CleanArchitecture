@@ -9,7 +9,7 @@ class Store{
     private _articles: Articles =[];
     private _pagination = {};
     // private _isLoading = false;
-    private _isLoading = [true];
+    private _isLoading = [false];
     private _error: string[]= [];
 
 
@@ -45,17 +45,15 @@ class Store{
         // console.log(this._pagination)
     }
 
-    // public setIsLoading(){
-    //     this._isLoading.splice(0, 1, !this._isLoading[0]);
-    //     // console.log(this._isLoading[0])
-    //     // this._isLoading = !this._isLoading
-    //     // this._isLoading = true
-    //     console.log(!this._isLoading[0])
-    // }
+    public setIsLoading(){
+        this._isLoading.splice(0, 1, !this._isLoading[0]);
+        // console.log(!this._isLoading[0])
+    }
 
     public setError(error: string){
         this._error.splice(0, 1, error);
-        this._isLoading.splice(0, 1, !this._isLoading[0]);
+        this.setIsLoading();
+        // this._isLoading.splice(0, 1, !this._isLoading[0]);
 
         // setTimeout(() => {
         //     this._isLoading.splice(0, 1, !this._isLoading[0]);
