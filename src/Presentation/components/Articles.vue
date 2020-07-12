@@ -50,8 +50,8 @@
     // declare module 'vue-loading-overlay'
     // require("Loading")
     // Import component
-    import * as Loading from 'vue-loading-overlay';
-    import 'vue-loading-overlay/dist/vue-loading.css';
+import * as Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import { Component, Vue } from 'vue-property-decorator';
 //store読み込み
 import store from '../store';

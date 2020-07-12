@@ -21,7 +21,7 @@
       "@/*": [
         "src/*"
       ],
-      "vue-loading-overlay": ["vue-loading-overlay.d.ts"]
+      "vue-loading-overlay": ["src/@types/vue-loading-overlay.d.ts"]
     },
     "lib": [
       "es6",//InversifyJSに必要
@@ -30,7 +30,7 @@
       "dom.iterable",
       "scripthost"
     ],
-    "typeRoots": ["node_modules/@types", "src/@types"], 
+    // "typeRoots": ["node_modules/@types", "src/@types"], //"node_modules/@types"と src/@types（自分で用意した型定義） ディレクトリの中にある型定義を読み込ませたい
   },
   "include": [
     "src/**/*.ts",
